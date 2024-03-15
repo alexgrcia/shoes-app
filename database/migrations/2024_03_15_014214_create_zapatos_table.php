@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('zapatos', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre');
             $table->decimal('precio',8,2);
             $table->string('estilo');
             $table->string('descripcion');

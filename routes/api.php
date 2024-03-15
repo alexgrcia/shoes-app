@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\TallaController;
+use App\Http\Controllers\ZapatoControllerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,3 +25,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::resource('categorias',CategoriaController::class);
 Route::resource('marcas',MarcaController::class);
 Route::resource('tallas',TallaController::class);
+Route::resource('zapatos',ZapatoController::class);
