@@ -43,9 +43,9 @@ class CategoriaController extends Controller
             $categoria = new Categoria();
             $categoria->nombre = $request->nombre;
             if($categoria->save() > 0){
-                return response()->json(["status"=> 'Created',"data"=> $categoria],201);
+                return response()->json(["status"=> 'Created',"data"=> $categoria,"message"=>'Categoria Agregada...!'],201);
             }else{
-                return response()->json(["status"=> 'fail',"data"=> $categoria],409);
+                return response()->json(["status"=> 'fail',"data"=> null,"message"=>'error...!'],409);
             }
             
         } catch (\Exception $e) {

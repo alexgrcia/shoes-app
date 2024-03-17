@@ -43,9 +43,9 @@ class MarcaController extends Controller
             $marca = new Marca();
             $marca->nombre = $request->nombre;
             if($marca->save() > 0){
-                return response()->json(["status"=> 'Created',"data"=> $marca],201);
+                return response()->json(["status"=> 'Created',"data"=> $marca,"message"=>'Marca Agregada...!'],201);
             }else{
-                return response()->json(["status"=> 'fail',"data"=> null],409);
+                return response()->json(["status"=> 'fail',"data"=> null,"message"=>'Error...!'],409);
             }
             
         } catch (\Exception $e) {

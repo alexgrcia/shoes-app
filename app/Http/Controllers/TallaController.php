@@ -43,9 +43,9 @@ class TallaController extends Controller
             $talla = new Talla();
             $talla->talla = $request->talla;
             if($talla->save() > 0){
-                return response()->json(["status"=> 'Created',"data"=> $talla],201);
+                return response()->json(["status"=> 'Created',"data"=> $talla,"message"=>'Talla Agregada...!'],201);
             }else{
-                return response()->json(["status"=> 'fail',"data"=> null],409);
+                return response()->json(["status"=> 'fail',"data"=> null,"message"=>'Error...!'],409);
             }
             
         } catch (\Exception $e) {

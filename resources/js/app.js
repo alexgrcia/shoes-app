@@ -57,6 +57,12 @@ app.component('example-component', ExampleComponent);
 import CategoriaComponent from './components/CategoriaComponent.vue';
 app.component('categoria-component', CategoriaComponent);
 
+import MarcaComponent from './components/MarcaComponent.vue';
+app.component('marca-component', MarcaComponent);
+
+import TallaComponent from './components/TallaComponent.vue';
+app.component('talla-component', TallaComponent);
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

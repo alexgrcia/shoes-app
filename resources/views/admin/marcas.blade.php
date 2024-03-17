@@ -7,7 +7,9 @@
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
+    <div id="app">
+        <marca-component /> 
+    </div>
 @stop
 
 @section('css') 
