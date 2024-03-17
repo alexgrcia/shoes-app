@@ -3,9 +3,12 @@
         <div class="card">
             <Toolbar class="mb-4">
                 <template #start>
-                   <!--colocar radio buton para filtrar reservas por estado-->
-                   <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio"  v-model="estado" name="reserva.estado" id="inlineRadio1" value="R" checked>
+                <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio"  v-model="estado" name="reserva.estado" id="inlineRadio4" value="" checked>
+                      <label class="form-check-label" for="inlineRadio4"> Todas las reservas </label>
+               </div>
+                <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio"  v-model="estado" name="reserva.estado" id="inlineRadio1" value="R">
                       <label class="form-check-label" for="inlineRadio1"> Reservas Recibidas</label>
                </div>
                <div class="form-check form-check-inline">
@@ -105,7 +108,7 @@
                 search:'',
                 submitted:false,
                 mostrarDetalleDialog: ref(false),
-                estado:'R' 
+                estado:'' 
            }
         },
         computed:{
@@ -116,6 +119,9 @@
             return this.reservas.filter(reser => reser.estado === 'D');
         }else if(this.estado === 'A'){
             return this.reservas.filter(reser => reser.estado === 'A');
+        }
+        else if(this.estado === ''){
+            return this.reservas.filter(reser => reser.estado !== '');
         }
         return this.reservas;
      }
