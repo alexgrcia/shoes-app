@@ -3,7 +3,8 @@
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\TallaController;
-use App\Http\Controllers\ZapatoControllerController;
+use App\Http\Controllers\ZapatoController;
+use App\Http\Controllers\ReservaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,3 +27,5 @@ Route::resource('categorias',CategoriaController::class);
 Route::resource('marcas',MarcaController::class);
 Route::resource('tallas',TallaController::class);
 Route::resource('zapatos',ZapatoController::class);
+Route::resource('reservas',ReservaController::class);
+Route::put('/reservas/change',[ReservaController::class,'changeState']);
