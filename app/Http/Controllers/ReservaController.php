@@ -23,14 +23,16 @@ class ReservaController extends Controller
                 $response[$i]["cliente"] =  $reserva->usuario->toArray();
                 //obtiene el detalle de la reserva
                 $detalle = $reserva->detalleReservas->toArray();
-
+                
                 //recorriendo el deltalle de la reserva
                 $f  =0;
+                $reserva["monto"] = 0;
                 foreach($reserva->detalleReservas as $item){
                     $detalle[$f]['zapato'] = $item->zapato->toArray();
                     $detalle[$f]['zapato']['marca'] = $item->zapato->marca->toArray();
                     $detalle[$f]['zapato']['categoria'] = $item->zapato->categoria->toArray();
                     $detalle[$f]['zapato']['talla'] = $item->zapato->talla->toArray();
+                    $reserva["monto"] = $reserva["monto"]  + ($detalle[$f]['cantidad'] * $detalle[$f]['zapato']['precio']) ;
                     $f++;
 
                 }

@@ -73,6 +73,9 @@ app.component('talla-component', TallaComponent);
 import ZapatoComponent from './components/ZapatoComponent.vue';
 app.component('zapato-component', ZapatoComponent);
 
+import ReservasComponent from './components/reservas/ReservasComponent.vue';
+app.component('reservas-component', ReservasComponent);
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
