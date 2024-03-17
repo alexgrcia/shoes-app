@@ -6,6 +6,11 @@
 
 import './bootstrap';
 import { createApp } from 'vue';
+import axios from 'axios';
+
+//importaciones
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css'
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
@@ -17,6 +22,9 @@ const app = createApp({});
 
 import ExampleComponent from './components/ExampleComponent.vue';
 app.component('example-component', ExampleComponent);
+
+import CategoriaComponent from './components/CategoriaComponent.vue';
+app.component('categoria-component', CategoriaComponent);
 
 /**
  * The following block of code may be used to automatically register your
@@ -36,4 +44,7 @@ app.component('example-component', ExampleComponent);
  * scaffolding. Otherwise, you will need to add an element yourself.
  */
 
+//definiendo variables globales
+app.config.globalProperties.axios = axios;
+app.use(VueSweetalert2);
 app.mount('#app');
