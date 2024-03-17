@@ -42,6 +42,13 @@ import Dialog from 'primevue/dialog';
 import Toast from 'primevue/toast';
 import ToastService from 'primevue/toastservice';
 
+import FileUpload from 'primevue/fileupload';
+import Carousel from 'primevue/carousel';
+import Tooltip from 'primevue/tooltip';
+import DataView from 'primevue/dataview';
+import DataViewLayoutOptions from 'primevue/dataviewlayoutoptions'  
+import Tag from 'primevue/tag';
+
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
@@ -62,6 +69,9 @@ app.component('marca-component', MarcaComponent);
 
 import TallaComponent from './components/TallaComponent.vue';
 app.component('talla-component', TallaComponent);
+
+import ZapatoComponent from './components/ZapatoComponent.vue';
+app.component('zapato-component', ZapatoComponent);
 
 /**
  * The following block of code may be used to automatically register your
@@ -112,4 +122,9 @@ app.component('Row', Row);
 app.component('Toolbar', Toolbar);
 app.component('Dialog', Dialog);
 app.component('Toast', Toast);
+app.component('FileUpload',FileUpload);
+app.component('Carousel',Carousel);
+app.component('DataView',DataView);
+app.component('DataViewLayoutOptions',DataViewLayoutOptions);
+app.component('Tag',Tag);
 app.mount('#app');

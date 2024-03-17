@@ -86,9 +86,9 @@ class ZapatoController extends Controller
             }
 
             if($result > 0){
-                return response()->json(["status"=> 'Created',"data"=> $zapato],201);
+                return response()->json(["status"=> 'Created',"data"=> $zapato,'message'=>'Producto Agregado...!'],201);
             }else{
-                return response()->json(["status"=> 'fail',"data"=> null],409);
+                return response()->json(["status"=> 'fail',"data"=> null,'message'=>'Error...!'],409);
             }
             
         } catch (\Exception $e) {
@@ -144,9 +144,12 @@ class ZapatoController extends Controller
             $zapato->descripcion = $request->descripcion;
             $zapato->color = $request->color;
             $zapato->disponible = $request->disponible;
-            $zapato->categoria_id = $request->categoria['id'];
+            /*$zapato->categoria_id = $request->categoria['id'];
             $zapato->marca_id = $request->marca['id'];
-            $zapato->talla_id = $request->talla['id'];
+            $zapato->talla_id = $request->talla['id'];*/
+            $zapato->categoria_id = $request->categoria_id;
+            $zapato->marca_id = $request->marca_id;
+            $zapato->talla_id = $request->talla_id;
 
             if($zapato->update() > 0){
                 return response()->json(["status"=> 'Accepted',"data"=> $zapato,'message'=>'Producto Actualizado...!'],202);
@@ -165,7 +168,17 @@ class ZapatoController extends Controller
     public function destroy(string $id)
     {
         try {
+            
             $zapato = Zapato::findOrFail($id);
+
+            $imagenesAEliminar = Imagen::where('zapato_id', $id)->get();
+
+            // Elimina los registros de la tabla "Zapatos" junto con sus imágenes asociadas
+            foreach ($imagenesAEliminar as $imagen) {
+                $imagen->delete();
+                $imagen->delete();
+            }
+
             if($zapato->delete()>0){
                 return response()->json(["status"=> 'Delete',"data"=> null,'message'=>'Producto Eliminado...!'],205);
             }else{
