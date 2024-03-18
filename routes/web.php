@@ -15,7 +15,7 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/', function () {
-    return view('orders');
+    return view('reservas');
 });
 
 Auth::routes();

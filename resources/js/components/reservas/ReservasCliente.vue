@@ -15,9 +15,9 @@
                         <div class="flex flex-column sm:flex-row sm:align-items-center p-4 gap-3" :class="{ 'border-top-1 surface-border': index !== 0 }">
                             <div class="md:w-10rem relative">
                                <!-- <img class="block xl:block mx-auto border-round w-full" :src="`https://primefaces.org/cdn/primevue/images/product/${item.image}`" :alt="item.name" />-->
-                               <img class="block xl:block mx-auto border-round w-full" src="/images/productos/1710551306_tablet.jpeg" :alt="item.nombre" />
+                               <img class="block xl:block mx-auto border-round w-full" :src="getImagenSrc(item['imagenes'][0])" :alt="item.nombre" />
 
-                               <Tag :value="item.stock" class="absolute" style="left: 4px; top: 4px"></Tag>
+                               <Tag :value="item.disponible" class="absolute" style="left: 4px; top: 4px"></Tag>
                             </div>
                             <div class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 gap-4">
                                 <div class="flex flex-row md:flex-column justify-content-between align-items-start gap-2">
@@ -63,7 +63,7 @@
                             <div class="surface-50 flex justify-content-center border-round p-3">
                                 <div class="relative mx-auto">
                                    <!-- <img class="border-round w-full" :src="`https://primefaces.org/cdn/primevue/images/product/${item.image}`" :alt="item.name" style="max-width: 300px"/>-->
-                                    <img class="border-round w-full" src="/images/productos/1710551306_tablet.jpeg" :alt="item.nombre" style="max-width: 300px" />
+                                    <img class="border-round w-full" :src="getImagenSrc(item['imagenes'][0])" :alt="item.nombre" style="max-width: 300px" />
                                   <Tag :value="item.stock" class="absolute" style="left: 4px; top: 4px"></Tag>
                                 </div>
                             </div>
@@ -157,9 +157,7 @@
            return{
               productos:[],
               orden:{
-                correlativo:"",
                 fecha:new Date(Date.now() - new Date().getTimezoneOffset()*60000),
-                fecha_despacho:null,
                 estado:'R',
                 monto: new Number("0").toFixed(2),
                 user:null,
@@ -175,7 +173,7 @@
         computed:{ 
             total(){
                 var totalOrder = 0;
-                this.order.detalleOrden.forEach(element => {
+                this.order.detalleReserva.forEach(element => {
                     totalOrder += (element.producto.precio * element.cantidad);
                 });
                 this.orden.monto = totalOrder;
@@ -184,7 +182,7 @@
         },
         methods:{
                async fetchProductos(){
-                await this.axios.get(`/api/productos`)
+                await this.axios.get(`/api/zapatos`)
                 .then(response => {
                     this.productos = response.data;
                 })
@@ -215,6 +213,11 @@
                 this.orden.detalleOrden.splice(index,1);
 
             },
+            getImagenSrc(imagen){
+                let nombre = imagen != null ? imagen.nombre : ''
+                return '/images/productos/' + nombre ;
+            }
+            ,
             async saveOrden(){
                 if(this.orden.detalleOrden.length > 0){
                     //setear datos faltantes de la orden
