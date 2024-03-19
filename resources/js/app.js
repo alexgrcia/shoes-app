@@ -48,6 +48,8 @@ import Tooltip from 'primevue/tooltip';
 import DataView from 'primevue/dataview';
 import DataViewLayoutOptions from 'primevue/dataviewlayoutoptions'  
 import Tag from 'primevue/tag';
+import MegaMenu from 'primevue/megamenu';
+
 
 
 /**
@@ -133,4 +135,5 @@ app.component('Carousel',Carousel);
 app.component('DataView',DataView);
 app.component('DataViewLayoutOptions',DataViewLayoutOptions);
 app.component('Tag',Tag);
+app.component('MegaMenu',MegaMenu);
 app.mount('#app');
