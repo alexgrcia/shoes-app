@@ -4,7 +4,7 @@
         <DataView :value="productos" :layout="layout"  paginator :rows="6">
             <template #header>
                 <div class="flex justify-content-end">
-                    <Button label="Ver Orden" link @click="viewOrden" v-if="orden.detalleOrden.length > 0" ></Button>
+                    <Button label="Ver Orden" link @click="viewOrden" v-if="orden.detalleReserva.length > 0" ></Button>
                     <DataViewLayoutOptions v-model="layout" />
                 </div>
             </template>
@@ -124,12 +124,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="item in orden.detalleOrden" :key="item.id">
-                            <td>{{ item.producto.nombre }},{{ item.producto.descripcion }}, modelo: {{item.producto.modelo }}</td>
-                            <td>{{item.producto.marca.nombre}}</td>
+                        <tr v-for="item in orden.detalleReserva" :key="item.id">
+                            <td>{{ item.zapato.nombre }},{{ item.zapato.descripcion }}, modelo: {{item.zapato.modelo }}</td>
+                            <td>{{item.zapato.marca.nombre}}</td>
                             <td>{{item.cantidad}}</td>
-                            <td>${{item.producto.precio}}</td>
-                            <td>${{item.cantidad * item.producto.precio}}</td>
+                            <td>${{item.zapato.precio}}</td>
+                            <td>${{item.cantidad * item.zapato.precio}}</td>
                             <td>
                                 <Button icon="pi pi-trash" outlined rounded severity="danger" @click="deleteItem(item)" />
                             </td>
@@ -143,7 +143,7 @@
             </div>
             <template #footer>
                 <Button label="Cerrar" icon="pi pi-items" text @click="hideDialog" />
-                 <Button label="Confirmar Orden" icon="pi pi-check" text @click="saveOrden" v-if="orden.detalleOrden.length > 0" />
+                 <Button label="Confirmar Orden" icon="pi pi-check" text @click="saveOrden" v-if="orden.detalleReserva.length > 0" />
                </template>
         </Dialog>
     </div>
@@ -161,7 +161,7 @@
                 estado:'R',
                 monto: new Number("0").toFixed(2),
                 user:null,
-                detalleOrden:[]
+                detalleReserva:[]
               },
                 editedOrden: -1,
                 search:'',
@@ -173,8 +173,8 @@
         computed:{ 
             total(){
                 var totalOrder = 0;
-                this.order.detalleReserva.forEach(element => {
-                    totalOrder += (element.producto.precio * element.cantidad);
+                this.orden.detalleReserva.forEach(element => {
+                    totalOrder += (element.zapato.precio * element.cantidad);
                 });
                 this.orden.monto = totalOrder;
                 return totalOrder;
@@ -191,11 +191,13 @@
                 })
             },
             addToOrden(item){
-                this.orden.detalleOrden.push({
+                this.orden.detalleReserva.push({
                     id:null,
                     cantidad: item.cantidad,
                     precio: item.precio,
-                    producto: item
+                    zapato_id:item.id,
+                    descripcion: "reservado",
+                    zapato: item
                 });
             },
             hideDialog(){
@@ -208,9 +210,9 @@
             },
             deleteItem(item){
                 //primero obtenemos el indice el item a eliminar
-                let index = this.orden.detalleOrden.indexOf(item);
+                let index = this.orden.detalleReserva.indexOf(item);
                 //quitamos el item del arreglo
-                this.orden.detalleOrden.splice(index,1);
+                this.orden.detalleReserva.splice(index,1);
 
             },
             getImagenSrc(imagen){
@@ -219,17 +221,17 @@
             }
             ,
             async saveOrden(){
-                if(this.orden.detalleOrden.length > 0){
+                if(this.orden.detalleReserva.length > 0){
                     //setear datos faltantes de la orden
                     this.orden.user =  this.user;
                     var f = new Date();
                     this.orden.fecha = f.getFullYear() + "-" + f.getMonth() + "-" + f.getDate();
-                    
-                    await this.axios.post(`/api/ordenes`, this.orden)
-                    .this(response => {
+                    console.log(this.orden);
+                    await this.axios.post(`/api/reservas`, this.orden)
+                    .then(response => {
                      if(response.status == 201){
-                         this.$swal.fire("success",`Su orden ha sido registrada con No. ${response.data.correlativo} pronto nos comunicaremos con usted `);
-                         this.orden.detalleOrden = [];
+                         this.$swal.fire("Reserva registrada",`Su reserva ha sido registrada con No. ${response.data.id} pronto nos comunicaremos con usted `);
+                         this.orden.detalleReserva = [];
                          this.mostrarOrdenDialog = false;
                      }
                     }).catch(err => {
