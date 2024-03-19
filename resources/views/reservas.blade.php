@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Categorias')
+@section('title', 'Reservas')
 
 @section('content_header')
     <h1>Listado de categorias</h1>

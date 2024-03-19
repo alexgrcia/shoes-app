@@ -4,7 +4,7 @@
         <DataView :value="productos" :layout="layout"  paginator :rows="6">
             <template #header>
                 <div class="flex justify-content-end">
-                    <Button label="Ver Orden" link @click="viewOrden" v-if="orden.detalleReserva.length > 0" ></Button>
+                    <Button label="Ver Reserva" link @click="viewReserva" v-if="orden.detalleReserva.length > 0" ></Button>
                     <DataViewLayoutOptions v-model="layout" />
                 </div>
             </template>
@@ -47,7 +47,7 @@
                                             </InputNumber>
 
                                         </div>
-                                        <Button icon="pi pi-shopping-cart" label="Agregar a Orden"  @click="addToOrden(item)" :disabled="item.stock === '0'" class="flex-auto md:flex-initial white-space-nowrap"></Button>
+                                        <Button icon="pi pi-shopping-cart" label="Agregar a Reserva"  @click="addToReserva(item)" :disabled="item.stock === '0'" class="flex-auto md:flex-initial white-space-nowrap"></Button>
                                     </div>
                                 </div>
                             </div>
@@ -93,7 +93,7 @@
                                             </InputNumber>
                                     </div>
                                     <div class="flex gap-2"> 
-                                        <Button icon="pi pi-shopping-cart" label="Agregar a Orden" :disabled="item.stock === '0'" class="flex-auto white-space-nowrap" @click="addToOrden(item)" ></Button>
+                                        <Button icon="pi pi-shopping-cart" label="Reservar" :disabled="item.stock === '0'" class="flex-auto white-space-nowrap" @click="addToReserva(item)" ></Button>
                                     </div>
                                 </div>
                             </div>
@@ -103,14 +103,16 @@
             </template>
      </DataView>
         <!--Modal para mostrar la orden y despues hacerla efectiva-->
-        <Dialog v-model:visible="mostrarOrdenDialog" :style="{width: '650px'}" header="Detalle de Orden" :modal="true" class="p-fluid">"
+        <Dialog v-model:visible="mostrarOrdenDialog" :style="{width: '650px'}" header="Detalle de Reserva" :modal="true" class="p-fluid">
          <div class="row">
             <div class="col">
                 <label>Fecha Orden: {{ orden.fecha }}</label>
             </div>
          </div>
           <div class="row">
+            <div class="col">
                 <label>Cliente: {{ user.name }}</label>
+            </div>
             </div>
             <div class="row">
                 <table class="table table-bordered">
@@ -135,7 +137,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="4">Total de la Orden</td>
+                            <td colspan="4">Total de la reserva</td>
                             <td><b>${{ total }}</b></td>
                         </tr>
                     </tbody>
@@ -143,7 +145,7 @@
             </div>
             <template #footer>
                 <Button label="Cerrar" icon="pi pi-items" text @click="hideDialog" />
-                 <Button label="Confirmar Orden" icon="pi pi-check" text @click="saveOrden" v-if="orden.detalleReserva.length > 0" />
+                 <Button label="Confirmar Reserva" icon="pi pi-check" text @click="saveReserva" v-if="orden.detalleReserva.length > 0" />
                </template>
         </Dialog>
     </div>
@@ -190,7 +192,7 @@
                     console.log(error);
                 })
             },
-            addToOrden(item){
+            addToReserva(item){
                 this.orden.detalleReserva.push({
                     id:null,
                     cantidad: item.cantidad,
@@ -204,7 +206,7 @@
                 this.mostrarOrdenDialog = false;
                 this.submitted = false;
             },
-            viewOrden(){
+            viewReserva(){
                  this.mostrarOrdenDialog = true;
                 this.submitted = true;
             },
@@ -220,7 +222,7 @@
                 return '/images/productos/' + nombre ;
             }
             ,
-            async saveOrden(){
+            async saveReserva(){
                 if(this.orden.detalleReserva.length > 0){
                     //setear datos faltantes de la orden
                     this.orden.user =  this.user;
@@ -230,7 +232,7 @@
                     await this.axios.post(`/api/reservas`, this.orden)
                     .then(response => {
                      if(response.status == 201){
-                         this.$swal.fire("Reserva registrada",`Su reserva ha sido registrada con No. ${response.data.id} pronto nos comunicaremos con usted `);
+                         this.$swal.fire("Reserva registrada",`Su reserva ha sido registrada con No. ${response.data.data.id} pronto nos comunicaremos con usted `);
                          this.orden.detalleReserva = [];
                          this.mostrarOrdenDialog = false;
                      }
