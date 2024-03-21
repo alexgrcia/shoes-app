@@ -21,8 +21,12 @@ nav a {
             border-radius: 5px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+        #prod {
+  max-width: 80%;
+  margin: 0 auto;
+}
 </style>
-<template style="max-width:800px;">        
+<template>        
         <nav>
             <ul>
                 <li><a href="/">Inicio</a></li>
@@ -33,7 +37,7 @@ nav a {
 
     </div>
     <div class="card">
-        <DataView :value="productos" :layout="layout"  paginator :rows="6">
+        <DataView :value="productos" :layout="layout"  paginator :rows="6" id="prod" >
             <template #header>
                 <div class="flex justify-content-end">
                     <Button label="Ver Reserva" link @click="viewReserva" v-if="orden.detalleReserva.length > 0" ></Button>
