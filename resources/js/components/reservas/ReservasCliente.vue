@@ -1,27 +1,34 @@
-
-<template>        
-<MegaMenu :model="items" class="p-3" style="border-radius: 3rem">
-    <template #item="{ item }">
-        <a v-if="item.root" class="flex align-items-center cursor-pointer px-3 py-2 overflow-hidden relative font-semibold text-lg uppercase" style="border-radius: 2rem">
-            <span :class="item.icon" />
-            <span class="ml-2">{{ item.label }}</span>
-        </a>
-        <a v-else-if="!item.image" class="flex align-items-center p-3 cursor-pointer mb-2 gap-2">
-            <span class="inline-flex align-items-center justify-content-center border-circle bg-primary w-3rem h-3rem">
-                <i :class="[item.icon, 'text-lg']"></i>
-            </span>
-            <span class="inline-flex flex-column gap-1">
-                <span class="font-medium text-lg text-900">{{ item.label }}</span>
-                <span class="white-space-nowrap">{{ item.subtext }}</span>
-            </span>
-        </a>
-        <div v-else class="flex flex-column align-items-start gap-3">
-            <img alt="megamenu-demo" :src="item.image" class="w-full" />
-            <span>{{ item.subtext }}</span>
-            <Button :label="item.label" outlined />
-        </div>
-    </template>
-        </MegaMenu>
+<style>
+/* Estilos para el menú horizontal */
+nav ul {
+    list-style-type: none; /* Quitamos las viñetas de la lista */
+    text-align: center; /* Centramos los ítems del menú */
+}
+nav li {
+    display: inline; /* Ítems del menú en una línea horizontal */
+    margin-right: 20px; /* Espacio entre los ítems */
+}
+nav a {
+    text-decoration: none; /* Quitamos el subrayado de los enlaces */
+    font-size: 18px; /* Tamaño de fuente */
+    color: #333; /* Color del texto */
+}
+.container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+</style>
+<template style="max-width:800px;">        
+        <nav>
+            <ul>
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/nosotros">Sobre nosotros</a></li>
+            </ul>
+        </nav>
     <div class="card">
 
     </div>
@@ -195,17 +202,7 @@
                 search:'',
                 submitted:false,
                 mostrarOrdenDialog: ref(false),
-                layout : ref('list'),
-                items : ref([
-    {
-        label: 'Productos',
-        root: true
-    },
-    {
-        label: 'Sobre Nosotros',
-        root: true
-    }
-])
+                layout : ref('list')
            }
         },
         computed:{ 

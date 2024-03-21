@@ -81,6 +81,9 @@ app.component('reservas-component', ReservasComponent);
 import ReservasCliente from './components/reservas/ReservasCliente.vue';
 app.component('reservas-cliente', ReservasCliente);
 
+import NosotrosComponent from './components/NosotrosComponent.vue';
+app.component('nosotros-component', NosotrosComponent);
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

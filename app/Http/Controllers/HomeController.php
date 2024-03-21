@@ -29,4 +29,8 @@ class HomeController extends Controller
     public function dash(){
         return view('admin.index');
     }
+
+    public function nosotros(){
+        return view('nosotros');
+    }
 }
