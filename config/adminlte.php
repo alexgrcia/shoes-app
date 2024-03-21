@@ -312,7 +312,7 @@ return [
         ],
         [
             'text' => 'Inicio',
-            'url' => '/home',
+            'url' => '/admin',
             'icon' => 'fas fw fa-home',
         ],
         [
