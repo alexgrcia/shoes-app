@@ -25,6 +25,11 @@ nav a {
   max-width: 80%;
   margin: 0 auto;
 }
+.p-button{
+    background-color: #1d51ff;
+    border-color: #1d51ff;
+    color: white;
+}
 </style>
 <template>        
         <nav>
